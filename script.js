@@ -38,7 +38,7 @@ function drawMandelbrot() {
             let brightness = 0;
 
             if (!isBounded) {
-                brightness = map(iterations, 0, maxIterations, 0, 255);
+                brightness = map(iterations, 0, maxIterations, 10, 255);
             }
 
             pixels[index + 0] = brightness - 100;
@@ -56,8 +56,8 @@ function drawMandelbrot() {
 function mouseWheel(e) {
 
     zoom = max(zoom - Math.sign(e.delta), 1);
-    maxIterations = zoom * 20 + 80;
-    vRange = vBaseRange / pow(zoom, 2);
+    maxIterations = pow(zoom, zoom/8) + (2 * pow(zoom, 2)) + (20 * zoom) + 100;
+    vRange = vBaseRange / pow(zoom, zoom/4);
 
     let nextBounds = getBounds(vRange);
     let [a0, b0] = getCoords(mouseX, mouseY, bounds);
